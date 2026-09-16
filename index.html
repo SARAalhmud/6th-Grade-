@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>رحلة المعلوماتية | الصف السادس</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f4f8fb;
+      --card:#ffffff;
+      --text:#17324d;
+      --muted:#6d8194;
+      --line:#e2ebf2;
+      --primary:#2878c8;
+      --primary-soft:#eaf4ff;
+      --green:#20a36a;
+      --green-soft:#eaf9f2;
+      --purple:#8067d8;
+      --purple-soft:#f1edff;
+      --gold:#efb63e;
+      --danger:#e56c6c;
+      --danger-soft:#fff0f0;
+      --shadow:0 14px 35px rgba(35,70,100,.08);
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:"Cairo",sans-serif;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(40,120,200,.07) 0 90px, transparent 91px),
+        radial-gradient(circle at 92% 18%, rgba(128,103,216,.06) 0 110px, transparent 111px),
+        var(--bg);
+      color:var(--text);
+    }
+
+    .page{
+      width:min(1180px,92%);
+      margin:34px auto 50px;
+    }
+
+    .hero{
+      position:relative;
+      overflow:hidden;
+      background:linear-gradient(135deg,#173b5d,#2878c8);
+      color:white;
+      border-radius:30px;
+      padding:38px 42px;
+      box-shadow:0 20px 45px rgba(23,59,93,.18);
+    }
+
+    .hero::before,.hero::after{
+      content:"";
+      position:absolute;
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:50%;
+    }
+    .hero::before{width:280px;height:280px;left:-100px;top:-120px}
+    .hero::after{width:190px;height:190px;right:-60px;bottom:-80px}
+
+    .hero-content{position:relative;z-index:2}
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 13px;
+      border-radius:999px;
+      background:rgba(255,255,255,.13);
+      font-size:13px;
+      font-weight:700;
+      border:1px solid rgba(255,255,255,.16);
+    }
+    .hero h1{
+      margin:18px 0 8px;
+      font-size:clamp(28px,4vw,45px);
+      line-height:1.25;
+    }
+    .hero p{
+      margin:0;
+      max-width:700px;
+      color:rgba(255,255,255,.85);
+      font-size:16px;
+      line-height:1.9;
+    }
+
+    .tech-orbit{
+      position:absolute;
+      left:45px;
+      bottom:28px;
+      display:flex;
+      gap:10px;
+      direction:ltr;
+    }
+    .tech-icon{
+      width:42px;height:42px;
+      display:grid;place-items:center;
+      border-radius:13px;
+      background:rgba(255,255,255,.13);
+      border:1px solid rgba(255,255,255,.18);
+      backdrop-filter:blur(6px);
+      font-size:18px;
+    }
+
+    .section{
+      margin-top:22px;
+    }
+
+    .section-title{
+      display:flex;
+      justify-content:space-between;
+      align-items:end;
+      gap:15px;
+      margin-bottom:13px;
+    }
+
+    .section-title h2{
+      margin:0;
+      font-size:22px;
+    }
+    .section-title span{
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:14px;
+    }
+    .stat{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:17px;
+      box-shadow:var(--shadow);
+    }
+    .stat-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:8px;
+    }
+    .stat-icon{
+      width:43px;height:43px;border-radius:14px;
+      display:grid;place-items:center;font-size:19px;
+    }
+    .stat-number{font-size:27px;font-weight:800}
+    .stat-label{margin-top:6px;color:var(--muted);font-size:13px}
+    .blue{background:var(--primary-soft);color:var(--primary)}
+    .green{background:var(--green-soft);color:var(--green)}
+    .purple{background:var(--purple-soft);color:var(--purple)}
+    .red{background:var(--danger-soft);color:var(--danger)}
+
+    .students{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:15px;
+    }
+
+    .student{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:21px;
+      padding:17px;
+      box-shadow:var(--shadow);
+      transition:.25s ease;
+    }
+    .student:hover{
+      transform:translateY(-4px);
+      box-shadow:0 20px 40px rgba(35,70,100,.11);
+    }
+    .student-head{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .avatar{
+      width:48px;height:48px;flex:0 0 48px;
+      border-radius:15px;
+      display:grid;place-items:center;
+      font-weight:800;
+      font-size:17px;
+      background:#eef5fb;
+      color:#2c638f;
+    }
+    .student-name{
+      font-size:15px;
+      font-weight:800;
+      margin-bottom:3px;
+    }
+    .level{
+      font-size:11px;
+      color:var(--muted);
+      display:flex;
+      align-items:center;
+      gap:5px;
+    }
+    .mini-tech{
+      margin-right:auto;
+      width:34px;height:34px;
+      display:grid;place-items:center;
+      border-radius:11px;
+      font-size:16px;
+    }
+
+    .progress-wrap{margin-top:15px}
+    .progress-line{
+      height:9px;
+      width:100%;
+      background:#edf2f6;
+      border-radius:999px;
+      overflow:hidden;
+    }
+    .progress{
+      height:100%;
+      border-radius:999px;
+      width:0;
+      transition:width 1s cubic-bezier(.2,.8,.2,1);
+    }
+    .progress.super{background:linear-gradient(90deg,#22aa70,#42c98f)}
+    .progress.up{background:linear-gradient(90deg,#2779c9,#6ca9e7)}
+    .progress.growing{background:linear-gradient(90deg,#8067d8,#ad9aec)}
+    .progress.need{background:linear-gradient(90deg,#e56c6c,#ef9999)}
+
+    .progress-meta{
+      display:flex;
+      justify-content:space-between;
+      margin-top:7px;
+      font-size:11px;
+      color:var(--muted);
+    }
+
+    .message{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:25px;
+      padding:25px;
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .message::before{
+      content:"</>";
+      position:absolute;
+      left:20px;
+      top:6px;
+      font-family:monospace;
+      font-size:90px;
+      color:#eef5fb;
+      font-weight:800;
+    }
+    .message-content{position:relative;z-index:1}
+    .message h3{margin:0 0 9px;font-size:20px}
+    .message p{
+      margin:0;
+      color:#586d80;
+      line-height:2;
+      font-size:14px;
+      max-width:900px;
+    }
+
+    .footer-note{
+      text-align:center;
+      color:var(--muted);
+      font-size:12px;
+      margin-top:18px;
+    }
+
+    @media (max-width: 900px){
+      .stats{grid-template-columns:repeat(2,1fr)}
+      .students{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width: 620px){
+      .page{width:min(94%,1180px);margin-top:18px}
+      .hero{padding:28px 23px;border-radius:23px}
+      .hero p{font-size:14px}
+      .tech-orbit{display:none}
+      .stats,.students{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="hero-content">
+        <div class="badge">💻 مادة المعلوماتية · الصف السادس</div>
+        <h1>رحلة طالبات الصف السادس في عالم المعلوماتية</h1>
+        <p>
+          نتابع كل خطوة، نحتفل بكل تقدم، ونساعد كل طالبة على بناء مهاراتها الرقمية
+          بثقة وإبداع. ✨
+        </p>
+      </div>
+
+      <div class="tech-orbit" aria-hidden="true">
+        <div class="tech-icon">⌨</div>
+        <div class="tech-icon">&lt;/&gt;</div>
+        <div class="tech-icon">▣</div>
+        <div class="tech-icon">⚡</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <div>
+          <h2>مؤشر تقدم الصف</h2>
+          <span>المستويات تعتمد على متابعة   </span>
+        </div>
+        <span>الصف السادس</span>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-top">
+            <div class="stat-icon green">▣</div>
+            <div class="stat-number" id="count-super">0</div>
+          </div>
+          <div class="stat-label">مستوى متقدم · Super</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-top">
+            <div class="stat-icon blue">↗</div>
+            <div class="stat-number" id="count-up">0</div>
+          </div>
+          <div class="stat-label">مستوى صاعد · Up</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-top">
+            <div class="stat-icon purple">&lt;/&gt;</div>
+            <div class="stat-number" id="count-growing">0</div>
+          </div>
+          <div class="stat-label">في بداية الصعود · Growing</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-top">
+            <div class="stat-icon red">🔐</div>
+            <div class="stat-number" id="count-need">0</div>
+          </div>
+          <div class="stat-label">بحاجة إلى متابعة</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <div>
+          <h2>طالباتنا اليوم</h2>
+          <span>كل بطاقة تمثل مرحلة الطالبة في رحلة التعلم</span>
+        </div>
+      </div>
+
+      <div class="students" id="students"></div>
+    </section>
+
+    <section class="section">
+      <div class="message">
+        <div class="message-content">
+          <h3>👨‍👩‍👧 رسالة إلى أولياء الأمور</h3>
+          <p>
+            إن تعلم المعلوماتية لا يقتصر على حفظ المعلومات، بل هو رحلة لاكتشاف
+            المهارات وتنمية التفكير وبناء الثقة بالنفس. دعمكم وتشجيعكم في المنزل
+            يساعدان ابنتكم على الاستمرار والتقدم. كل خطوة صغيرة اليوم قد تصبح
+            إنجازاً كبيراً غداً. 💻✨
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer-note">
+      معاً نتابع · معاً نشجع · معاً نصنع التقدم
+    </div>
+  </main>
+
+<script>
+const students = [
+  ["شيماء الباشا", 75],
+  ["هدى بكداش", 100],
+  ["اسماء الشواخ", 75],
+  ["حسناء العبدالله", 72],
+  ["عائشة عبد الكريم", 73],
+  ["اسيل المصري", 70],
+  ["حنين العكلة", 70],
+  ["شهد شهابي", 80],
+  ["لجين عثمان", 70],
+  ["ايمان احمد", 80],
+  ["عائشة مطر", 80],
+  ["لارين السواس", 80],
+  ["انهار الشهابي", 80],
+  ["سدن مراد", 60],
+  ["ميسم حجار", 70],
+  ["جود الطالب", 60],
+  ["ماريا محمد اغا", 70],
+  ["رغداء الحاج محمد", 60],
+  ["رزان صباغ", 80],
+  ["سارة عبدلله", 70],
+  ["نور محمد", 100],
+  ["فاطمة حج محمد", 80],
+  ["اماني حمدان", 80],
+  ["ريتاج شحود", 70],
+  ["علا القاسم", 60],
+];
+
+const labels = {
+  super: {
+    name: "مستوى متقدم · Super",
+    icon: "▣",
+    cls: "green",
+    bar: "super"
+  },
+  up: {
+    name: "مستوى صاعد · Up",
+    icon: "↗",
+    cls: "blue",
+    bar: "up"
+  },
+  growing: {
+    name: "في بداية الصعود · Growing",
+    icon: "</>",
+    cls: "purple",
+    bar: "growing"
+  },
+  need: {
+    name: "بحاجة إلى متابعة",
+    icon: "🔐",
+    cls: "red",
+    bar: "need"
+  }
+};
+
+
+// تحديد المستوى حسب العلامة
+function getLevel(mark) {
+  if (mark >= 80) {
+    return "super";
+  }
+
+  if (mark >= 70) {
+    return "up";
+  }
+
+  if (mark >= 60) {
+    return "growing";
+  }
+
+  return "need";
+}
+
+
+const initials = name =>
+  name.trim()
+      .split(/\s+/)
+      .map(x => x[0])
+      .slice(0, 2)
+      .join("");
+
+
+const container = document.getElementById("students");
+
+const counts = {
+  super: 0,
+  up: 0,
+  growing: 0,
+  need: 0
+};
+
+
+// إنشاء بطاقات الطالبات
+students.forEach((student) => {
+
+  const [name, mark] = student;
+
+  // المستوى يحدد تلقائياً
+  const level = getLevel(mark);
+
+  counts[level]++;
+
+  const info = labels[level];
+
+  const card = document.createElement("article");
+
+  card.className = "student";
+
+  card.innerHTML = `
+    <div class="student-head">
+
+      <div class="avatar">
+        ${initials(name)}
+      </div>
+
+      <div>
+        <div class="student-name">
+          ${name}
+        </div>
+
+        <div class="level">
+          <span>${info.icon}</span>
+          <span>${info.name}</span>
+        </div>
+      </div>
+
+      <div class="mini-tech ${info.cls}">
+        ${info.icon}
+      </div>
+
+    </div>
+
+    <div class="progress-wrap">
+
+      <div class="progress-line">
+
+        <div
+          class="progress ${info.bar}"
+          data-width="${mark}%">
+        </div>
+
+      </div>
+
+      <div class="progress-meta">
+
+        <span>العلامة</span>
+
+        <span>${mark}%</span>
+
+      </div>
+
+    </div>
+  `;
+
+  container.appendChild(card);
+});
+
+
+// تحديث أعداد المستويات
+Object.entries(counts).forEach(([key, value]) => {
+
+  document.getElementById(`count-${key}`).textContent = value;
+
+});
+
+
+// حركة أشرطة التقدم
+requestAnimationFrame(() => {
+
+  document.querySelectorAll(".progress").forEach((bar, i) => {
+
+    setTimeout(() => {
+
+      bar.style.width = bar.dataset.width;
+
+    }, 120 + i * 25);
+
+  });
+
+});
+</script>
+</body>
+</html>
